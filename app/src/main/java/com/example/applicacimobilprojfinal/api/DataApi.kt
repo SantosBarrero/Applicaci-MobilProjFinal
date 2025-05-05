@@ -20,7 +20,7 @@ class DataApi : CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
-    private val url = "https://firstbluehouse50.conveyor.cloud/api/"
+    private val url = "https://tallsparklypen12.conveyor.cloud/api/"
 
     private fun getClient(): OkHttpClient {
         val logging = HttpLoggingInterceptor()
