@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,9 +14,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ApplicacióMobilProjFinal"
         tools:targetApi="31">
+        <activity
+            android:name=".PantallaPerfil"
+            android:exported="false" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDS2-Zq8iF077PS8WA1t2PpVX2XLp0NeYY" />
+
         <activity
             android:name=".PantallaRegistre"
             android:exported="false" />

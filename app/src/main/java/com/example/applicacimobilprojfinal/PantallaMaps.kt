@@ -1,11 +1,17 @@
 package com.example.applicacimobilprojfinal
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.applicacimobilprojfinal.api.Comerc
+import com.example.applicacimobilprojfinal.api.CoordenadesResposta
+import com.example.applicacimobilprojfinal.api.DataApi
+import com.example.applicacimobilprojfinal.api.DataApiLocations
+import com.example.applicacimobilprojfinal.api.Sucursal
 import com.example.applicacimobilprojfinal.databinding.ActivityPantallaMapsBinding
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -15,12 +21,15 @@ import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
 class PantallaMaps : AppCompatActivity(), OnMapReadyCallback, CoroutineScope {
     private var job = Job()
     lateinit var mMap: GoogleMap
     lateinit var binding : ActivityPantallaMapsBinding
+    private val dataApiLocations: DataApiLocations = DataApiLocations()
+    private val dataApi: DataApi = DataApi()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -39,33 +48,68 @@ class PantallaMaps : AppCompatActivity(), OnMapReadyCallback, CoroutineScope {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        val ubicacio = LatLng(41.60034274245597, 2.2827648723099085)
-
-        val marcador=  mMap.addMarker(
-            MarkerOptions()
-                .position(ubicacio)
-                .title("Tres Torres")
-        )
+        val comerc = dataApi.getLlistaSucursals()
+        val comercs = Comerc("Vallbona", "Carrer del Camp de les Moreres, 14, 08401 Granollers, Barcelona")
 
 
-        mMap.moveCamera(com.google.android.gms.maps.CameraUpdateFactory.newLatLngZoom(ubicacio, 15f))
-        mMap.setOnMarkerClickListener { marker ->
-            if (marker == marcador) {
-                mostrarBottomSheet(marker.title ?: "")
-                true
+        launch {
+            val resposta: List<CoordenadesResposta>? = dataApiLocations.obtenirCoordenades(
+                "pk.13559dfb90dd28ac41e388d891dd25e8",
+                comerc!![0].direccio.toString()
+            )
+
+            if (!resposta.isNullOrEmpty()) {
+                val coordenada = resposta[0]
+
+                val lat = coordenada.lat.toDoubleOrNull()
+                val lon = coordenada.lon.toDoubleOrNull()
+
+                if (lat != null && lon != null) {
+                    val ubicacio = LatLng(lat, lon)
+
+                    val marcador = mMap.addMarker(
+                        MarkerOptions()
+                            .position(ubicacio)
+                            .title("Prova")
+                    )
+                    marcador?.tag = comerc[0]
+
+                    mMap.moveCamera(
+                        com.google.android.gms.maps.CameraUpdateFactory.newLatLngZoom(
+                            ubicacio,
+                            15f
+                        )
+                    )
+
+                    mMap.setOnMarkerClickListener { marker ->
+                        val comerci = marker.tag as? Sucursal
+                        if (comerci != null) {
+                            mostrarBottomSheet(comerci)
+                            true
+                        } else {
+                            false
+                        }
+                    }
+                } else {
+                    Log.e("MAPA", "Lat o Lon no són vàlids")
+                }
             } else {
-                false
+                Log.e("MAPA", "No s'han obtingut coordenades")
             }
         }
     }
 
-    private fun mostrarBottomSheet(titol: String) {
+
+        private fun mostrarBottomSheet(sucu: Sucursal) {
         val bottomSheetView = layoutInflater.inflate(R.layout.bottom_sheet, null, false)
-        bottomSheetView.findViewById<TextView>(R.id.titol).text = titol
+        bottomSheetView.findViewById<TextView>(R.id.titol).text = "Prova"
+        bottomSheetView.findViewById<TextView>(R.id.carrer).text = sucu.direccio
+
         val bottomSheetDialog = com.google.android.material.bottomsheet.BottomSheetDialog(this)
         bottomSheetDialog.setContentView(bottomSheetView)
         bottomSheetDialog.show()
     }
+
 
 
 

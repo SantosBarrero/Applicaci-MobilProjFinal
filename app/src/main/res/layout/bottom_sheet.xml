@@ -1,20 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:background="@drawable/bg_bottom"
+    android:padding="16dp"
+    android:gravity="center_horizontal">
 
     <TextView
         android:id="@+id/titol"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Nom Comerç"
+        android:textSize="20sp"
         android:textStyle="bold"
-        android:textSize="18sp"/>
+        android:layout_marginBottom="12dp"/>
 
     <TextView
-        android:id="@+id/desc"
+        android:id="@+id/carrer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"/>
+        android:text="Carrer" />
+
+
+    <Button
+        android:id="@+id/boto_productes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="120dp"
+        android:text="Productes"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#7B5B5B"
+        android:background="@drawable/backround_bottom"/>
 </LinearLayout>

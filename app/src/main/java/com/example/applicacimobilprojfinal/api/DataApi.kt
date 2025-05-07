@@ -20,7 +20,7 @@ class DataApi : CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
-    private val url = "https://tallsparklypen12.conveyor.cloud/api/"
+    private val url = "https://smallaquapencil56.conveyor.cloud/api/"
 
     private fun getClient(): OkHttpClient {
         val logging = HttpLoggingInterceptor()
@@ -66,5 +66,21 @@ class DataApi : CoroutineScope {
             Log.e("POST", "Error al fer el POST", e)
             false
         }
+    }
+
+    fun getLlistaSucursals(): List<Sucursal>? {
+        var sucursals: List<Sucursal>? = null
+        runBlocking {
+            var resposta: Response<List<Sucursal>>? = null
+            val cor = launch {
+                resposta = getRetrofit().create(ApiService::class.java).getSucursal()
+            }
+            cor.join()
+            if (resposta!!.isSuccessful)
+                sucursals = resposta!!.body()
+            else
+                sucursals = null
+        }
+        return sucursals
     }
 }

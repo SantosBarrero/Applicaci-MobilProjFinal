@@ -12,4 +12,15 @@ interface ApiService {
 
     @POST("Usuaris/")
     suspend fun postUsuari(@Body usuari: Usuari): Response<Usuari>
+
+    @GET("Sucursals/")
+    suspend fun getSucursal(): Response<List<Sucursal>>
+
+    @GET("v1/search")
+    suspend fun getCoordenades(
+        @Query("key") apiKey: String,
+        @Query("q") adreça: String,
+        @Query("format") format: String = "json"
+    ): Response<List<CoordenadesResposta>>
+
 }
