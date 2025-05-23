@@ -20,7 +20,7 @@ class DataApi : CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
-    private val url = "https://smallaquapencil56.conveyor.cloud/api/"
+    private val url = "https://smalltealsled74.conveyor.cloud/api/"
 
     private fun getClient(): OkHttpClient {
         val logging = HttpLoggingInterceptor()
@@ -68,6 +68,22 @@ class DataApi : CoroutineScope {
         }
     }
 
+    fun getComerçId(id: Int?): Comerc? {
+        var comerç: Comerc? = null
+        runBlocking {
+            var resposta: Response<Comerc>? = null
+            val cor = launch {
+                resposta = getRetrofit().create(ApiService::class.java).getComerçPerId(id!!)
+            }
+            cor.join()
+            if (resposta!!.isSuccessful)
+                comerç = resposta!!.body()
+            else
+                comerç = null
+        }
+        return comerç
+    }
+
     fun getLlistaSucursals(): List<Sucursal>? {
         var sucursals: List<Sucursal>? = null
         runBlocking {
@@ -83,4 +99,85 @@ class DataApi : CoroutineScope {
         }
         return sucursals
     }
+
+    suspend fun insertarEncarec(encarrec: Encarrec): Encarrec? {
+        return try {
+            val call = getRetrofit().create(ApiService::class.java).postEncarrec(encarrec)
+            if (call.isSuccessful) {
+                call.body()
+            } else {
+                Log.e("POST", "Error en la resposta: ${call.errorBody()?.string()}")
+                null
+            }
+        } catch (e: Exception) {
+            Log.e("POST", "Error al fer el POST", e)
+            null
+        }
+    }
+
+
+    fun getEncarrecsId(id: Int?): List<Encarrec>? {
+        var encarrec: List<Encarrec>? = null
+        runBlocking {
+            var resposta: Response<List<Encarrec>>? = null
+            val cor = launch {
+                resposta = getRetrofit().create(ApiService::class.java).getEncarrecsPerId(id!!)
+            }
+            cor.join()
+            if (resposta!!.isSuccessful)
+                encarrec = resposta!!.body()
+            else
+                encarrec = null
+        }
+        return encarrec
+    }
+
+    fun getStck(id: Int): List<Producte>? {
+        var productes: List<Producte>? = null
+        runBlocking {
+            var resposta: Response<List<Producte>>? = null
+            val cor = launch {
+                resposta = getRetrofit().create(ApiService::class.java).getStockSucur(id)
+            }
+            cor.join()
+            if (resposta!!.isSuccessful)
+                productes = resposta!!.body()
+            else
+                productes = null
+        }
+        return productes
+    }
+
+    fun getProducte(codi: String): Producte? {
+        var producte: Producte? = null
+        runBlocking {
+            var resposta: Response<Producte>? = null
+            val cor = launch {
+                resposta = getRetrofit().create(ApiService::class.java).getProducte(codi)
+            }
+            cor.join()
+            if (resposta!!.isSuccessful)
+                producte = resposta!!.body()
+            else
+                producte = null
+        }
+        return producte
+    }
+
+    suspend fun insertarProdEncarr(pe: ProducteEncarrec): Boolean {
+        return try {
+            val call = getRetrofit().create(ApiService::class.java).postProdEncarrec(pe)
+            if (call.isSuccessful) {
+                Log.i("POST", "Usuari creat: ${call.body()}")
+            } else {
+                Log.e("POST", "Error en la resposta: ${call.errorBody()?.string()}")
+            }
+            call.isSuccessful
+        } catch (e: Exception) {
+            Log.e("POST", "Error al fer el POST", e)
+            false
+        }
+    }
 }
+
+

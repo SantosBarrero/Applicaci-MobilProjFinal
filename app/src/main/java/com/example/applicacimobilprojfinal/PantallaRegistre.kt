@@ -49,7 +49,6 @@ class PantallaRegistre : AppCompatActivity() {
                                     contrasenya = password,
                                     rol = "Client",
                                 )
-
                                 val dataApi = DataApi()
                                 CoroutineScope(Dispatchers.Main).launch {
                                     val resultat = dataApi.insertarUsuari(nouUsuari)
@@ -57,26 +56,18 @@ class PantallaRegistre : AppCompatActivity() {
                                         Toast.makeText(this@PantallaRegistre, "Usuari registrat correctament!", Toast.LENGTH_SHORT).show()
                                         val intent = Intent(this@PantallaRegistre, PantallaMaps::class.java)
                                         startActivity(intent)
-                                        Log.i("Usuari", nouUsuari.toString())
                                     } else {
-                                        Toast.makeText(this@PantallaRegistre, "Error en registrar l'usuari", Toast.LENGTH_SHORT).show()
-                                    }
-                                }
+                                        Toast.makeText(this@PantallaRegistre, "Error en registrar l'usuari", Toast.LENGTH_SHORT).show() } }
                             } else {
-                                Toast.makeText(this, "Les contrasenyes no són iguals", Toast.LENGTH_SHORT).show()
-                            }
+                                Toast.makeText(this, "Les contrasenyes no són iguals", Toast.LENGTH_SHORT).show() }
                         } else {
-                            Toast.makeText(this, "Confirma la contrasenya", Toast.LENGTH_SHORT).show()
-                        }
+                            Toast.makeText(this, "Confirma la contrasenya", Toast.LENGTH_SHORT).show() }
                     } else {
-                        Toast.makeText(this, "Introdueix una contrasenya", Toast.LENGTH_SHORT).show()
-                    }
+                        Toast.makeText(this, "Introdueix una contrasenya", Toast.LENGTH_SHORT).show() }
                 } else {
-                    Toast.makeText( this, "Introdueix un correu", Toast.LENGTH_SHORT).show()
-                }
+                    Toast.makeText( this, "Introdueix un correu", Toast.LENGTH_SHORT).show() }
             } else {
-                Toast.makeText(this, "Introdueix un nom d'usuari", Toast.LENGTH_SHORT).show()
-            }
+                Toast.makeText(this, "Introdueix un nom d'usuari", Toast.LENGTH_SHORT).show() }
         }
 
         binding.btnLogin.setOnClickListener {

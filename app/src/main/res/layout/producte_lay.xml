@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="150dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginEnd="16dp"
+    android:background="@drawable/prod_bg"
+    android:padding="8dp">
+
+    <ImageView
+        android:id="@+id/imageProducte"
+        android:layout_width="120dp"
+        android:layout_gravity="center"
+        android:layout_height="120dp"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/nomProducte"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nom del Producte"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:paddingTop="8dp" />
+
+    <TextView
+        android:id="@+id/preuProducte"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Preu"
+        android:layout_gravity="right"
+        android:layout_marginEnd="4dp"
+        android:textSize="14sp"
+        android:textColor="#888888" />
+</LinearLayout>

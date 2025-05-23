@@ -10,9 +10,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main2"
-        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="30dp"
         android:background="@drawable/radio"
         tools:context=".PantallaMaps">
 
@@ -21,17 +21,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:fontFamily="sans-serif-light"
             android:gravity="center"
-            android:text="Busca Comerços"
+            android:text="Els Teus Encarrecs"
             android:textSize="25dp"
             app:layout_constraintBottom_toTopOf="@+id/ComerçLayout"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.175"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></TextView>
+            app:layout_constraintTop_toTopOf="parent">
+
+        </TextView>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/ComerçLayout"
@@ -44,7 +46,6 @@
             app:boxCornerRadiusBottomStart="25dp"
             app:boxCornerRadiusTopEnd="25dp"
             app:boxCornerRadiusTopStart="25dp"
-            app:layout_constraintBottom_toTopOf="@+id/map"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -58,19 +59,22 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <fragment
-            android:id="@+id/map"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcvEncarrg"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:paddingBottom="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="152dp"
-            android:layout_weight="2"
-            android:elevation="10dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/ComerçLayout"
+            app:layout_constraintVertical_bias="0.049">
+
+
+        </androidx.recyclerview.widget.RecyclerView>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"
@@ -82,18 +86,18 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:menu="@menu/bottom_menu" />
 
-
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/Imatje"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:src="@drawable/donpollo"
-            app:layout_constraintBottom_toTopOf="@+id/map"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.855"
+            app:layout_constraintHorizontal_bias="0.819"
             app:layout_constraintStart_toEndOf="@+id/ComerçLayout"
-            app:layout_constraintTop_toBottomOf="@+id/textView2"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.drawerlayout.widget.DrawerLayout>
+
+
+

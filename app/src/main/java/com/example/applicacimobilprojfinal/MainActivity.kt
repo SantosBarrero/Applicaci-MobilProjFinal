@@ -38,12 +38,11 @@ class MainActivity : AppCompatActivity() {
                             val usuariTrobat = usuaris.find { (it.correu == correuOUsuari || it.nomUsuari == correuOUsuari) && it.contrasenya == contrasenya }
                             if (usuariTrobat != null) {
                                 val intent = Intent(this@MainActivity, PantallaMaps::class.java)
+                                intent.putExtra("usuari", usuariTrobat)
                                 startActivity(intent)
                             } else {
                                 Toast.makeText(this@MainActivity, "Usuari o contrasenya incorrectes", Toast.LENGTH_SHORT).show()
                             }
-                        } else {
-                            Toast.makeText(this@MainActivity, "Error carregant usuaris", Toast.LENGTH_SHORT).show()
                         }
                     }
                 } else {
